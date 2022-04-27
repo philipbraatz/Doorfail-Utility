@@ -1,7 +1,8 @@
-﻿namespace Doorfail.Core.Data;
-
-public abstract class EnumEntity : Entity<int>
+﻿namespace Doorfail.Core.Data
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public abstract class EnumEntity : Entity<int>
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
 }

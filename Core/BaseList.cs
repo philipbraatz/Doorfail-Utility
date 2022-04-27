@@ -1,8 +1,9 @@
-﻿using Doorfail.Core.Extensions;
+﻿using Doorfail.Core.Data;
+using Doorfail.Core.Extensions;
 using System.Data.Entity;
 using System.Reflection;
 
-namespace Doorfail.Core.Data
+namespace Doorfail.Core
 {
     public class BaseList<Tcrud, TEntity, Tid> : List<Tcrud>
            where TEntity : Entity<Tid>//database table
@@ -24,13 +25,13 @@ namespace Doorfail.Core.Data
         //TODO needs testing
         public void LoadAll(DbSet<TEntity> table)
         {
-            this.Clear();
+            Clear();
             if (table.ToList().Count != 0)
                 foreach (var c in table.ToList())
                 {
                     Tcrud tinstance = (Tcrud)Activator.CreateInstance(typeof(Tcrud), new object[] { });
                     typeof(Tcrud).GetConstructor(new Type[] { typeof(TEntity) }).Invoke(tinstance, new object[] { c });//create a BL version of the PL class
-                    base.Add(tinstance);//converting problem
+                    Add(tinstance);//converting problem
                 }
         }
     }
@@ -142,14 +143,14 @@ namespace Doorfail.Core.Data
                 if (joinGroupingID.Equals(col.GetValue<TForignEntity>(joinGroupingIDname)))
                     joinTable.Remove(col);
             dc.SaveChanges();
-            this.Clear();
+            Clear();
         }
 
         public void Add(DbContext dc, DbSet<TForignEntity> joinTable, TForignEntity joinInstance, Tcrud entry)
         {
             //Set new ID based on type
             if (joinTable_Properties[0].GetValue(joinInstance) is Guid)
-                joinInstance.SetValue<TForignEntity>(joinTable_Properties[0].Name, Guid.NewGuid());//instance_PK = newID using ("join_Property_ID")
+                joinInstance.SetValue(joinTable_Properties[0].Name, Guid.NewGuid());//instance_PK = newID using ("join_Property_ID")
             else if (joinTable_Properties[0].GetValue(joinInstance) is int)//gets type int
             {
                 int newID = 0;
@@ -167,19 +168,19 @@ namespace Doorfail.Core.Data
                     newID = max + 1;
                 }
                 //set primary key
-                joinInstance.SetValue<TForignEntity>(joinTable_Properties[0].Name, newID);//instance_PK = newID using ("join_Property_ID")
+                joinInstance.SetValue(joinTable_Properties[0].Name, newID);//instance_PK = newID using ("join_Property_ID")
             }
             //if its not a guid or int the ID has to be pre-set before adding
 
             //set ID for group
-            joinInstance.SetValue<TForignEntity>(joinGroupingIDname, joinGroupingID);//instance_Grouping_ID = join_Grouping_ID using ("join_Grouping_ID")
+            joinInstance.SetValue(joinGroupingIDname, joinGroupingID);//instance_Grouping_ID = join_Grouping_ID using ("join_Grouping_ID")
             //set ID of entry being added
-            joinInstance.SetValue<TForignEntity>(joinForeignIDname,           //instance_FK using("join_FK") =
-                entry.GetValue<Tcrud>(properties[0].Name)); // entry_ID using("entry_ID")
+            joinInstance.SetValue(joinForeignIDname,           //instance_FK using("join_FK") =
+                entry.GetValue(properties[0].Name)); // entry_ID using("entry_ID")
 
             joinTable.Add(joinInstance);//add
             dc.SaveChanges();
-            base.Add(entry);
+            Add(entry);
         }
 
         public void Remove(DbContext dc, DbSet<TForignEntity> joinTable, Tcrud entry)
@@ -187,13 +188,13 @@ namespace Doorfail.Core.Data
             foreach (var join in joinTable)
             {
                 if (joinGroupingID.Equals(join.GetValue<TForignEntity>(joinGroupingIDname)) &&//ID for this group matches
-                    entry.GetValue<Tcrud>(properties[0].Name).Equals(
+                    entry.GetValue(properties[0].Name).Equals(
                         join.GetValue<TForignEntity>(joinForeignIDname))
                     )//ID for this entry matches
                     joinTable.Remove(join);
             }
             dc.SaveChanges();
-            base.Remove(entry);
+            Remove(entry);
         }
     }
 }

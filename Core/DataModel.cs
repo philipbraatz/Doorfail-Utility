@@ -1,7 +1,8 @@
-﻿using Doorfail.Core.Extensions;
+﻿using Doorfail.Core.Data;
+using Doorfail.Core.Extensions;
 using System.Data.Entity;
 
-namespace Doorfail.Core.Data
+namespace Doorfail.Core
 {
     public class DataModel<TEntity, TId> : Entity<TId>, IDataModel where TEntity : Entity<TId>
     {
@@ -184,7 +185,7 @@ namespace Doorfail.Core.Data
                     if (fixFirstFound)
                     {
                         //instance = where( entry in the table == this ID)
-                        if ((col.GetValue(propName).ToString()) == (tempID.ToString()))
+                        if (col.GetValue(propName).ToString() == tempID.ToString())
                         {
                             Self = col;//sets all properties
                             found = true;
@@ -198,7 +199,7 @@ namespace Doorfail.Core.Data
                     }
                 }
                 //check first entry
-                if (firstObject != null && (firstObject.GetValue(propName).ToString()) == (tempID.ToString()))
+                if (firstObject != null && firstObject.GetValue(propName).ToString() == tempID.ToString())
                 {
                     Self = firstObject;
                     found = true;
@@ -276,7 +277,7 @@ namespace Doorfail.Core.Data
                     else if (propType.Name == "String" &&
                              ((string)value).Length > propinf.Max)//get property index equal to current property to compare sized
                     {
-                        propinf.Info.SetValue(Self, ((string)value));//.Substring(0, propinf.max - 1));//cut of larger values (zero based)
+                        propinf.Info.SetValue(Self, (string)value);//.Substring(0, propinf.max - 1));//cut of larger values (zero based)
                     }
                     else
                         propinf.Info.SetValue(Self, value);
