@@ -27,4 +27,8 @@
     <DockerfileContext>..\..</DockerfileContext>
     <DockerfileRunEnvironmentFiles>config/settings.env</DockerfileRunEnvironmentFiles>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\Utils.csproj" />
+  </ItemGroup>
 </Project>
