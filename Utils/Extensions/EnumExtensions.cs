@@ -19,7 +19,7 @@ namespace Doorfail.Core.Utils.Extensions
         }
 
         public static string ToTitleCase(this Enum str)
-            => str.ToString().ToTitleCase());
+            => str.ToString().ToTitleCase();
         public static string ToTitleCase(this string str)
             => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
 
