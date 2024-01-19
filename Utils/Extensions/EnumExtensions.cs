@@ -9,7 +9,8 @@ namespace Doorfail.Core.Utils.Extensions
 {
     public static class EnumExtensions
     {
-        public static string GetDisplayName(this Enum enumValue)
+        public static string GetDisplayName<TEnum>(this TEnum enumValue)
+            where TEnum : Enum
         {
             return enumValue.GetType()
                 .GetMember(enumValue.ToString())
@@ -18,11 +19,11 @@ namespace Doorfail.Core.Utils.Extensions
                 .GetName();
         }
 
-        public static string ToTitleCase(this Enum str)
+        public static string ToTitleCase<TEnum>(this TEnum str)
+             where TEnum : Enum
             => str.ToString().ToTitleCase();
         public static string ToTitleCase(this string str)
             => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
-
 
         public static string[] GetEnumKeys<TEnum>() => Enum.GetNames(typeof(TEnum));
         public static int[] GetEnumValues<TEnum>() => (int[])Enum.GetValues(typeof(TEnum));
