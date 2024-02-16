@@ -1,0 +1,59 @@
+﻿@using System.Diagnostics.CodeAnalysis
+
+<div class="chat__conversation-panel">
+    <div class="chat__conversation-panel__container">
+        @ChildContent
+
+        <input class="chat__conversation-panel__input panel-item" @bind-value="Message" @bind-value:event="oninput" placeholder="@Placeholder" />
+        <button class="chat__conversation-panel__button panel-item btn-icon send-message-button" @onclick="SendMessage">
+            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><line x1='22' y1='2' x2='11' y2='13' /><polygon points='22 2 15 22 11 13 2 9 22 2' /></svg>
+        </button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnSendMessage { get; set; }
+
+    [Parameter]
+    public string Placeholder { get; set; } = "Type a message...";
+
+    [Parameter]
+    public string SendIconAdditionalClasses { get; set; }
+
+    private string Message { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Message = Placeholder;
+    }
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrEmpty(Message) && !string.IsNullOrWhiteSpace(Message) && OnSendMessage.HasDelegate)
+        {
+            await OnSendMessage.InvokeAsync();
+        }
+    }
+
+    public class ChatButton
+    {
+        public string Icon { get; set; }
+        public string Class { get; set; } = "chat__conversation-panel__button";
+        public string AdditionalClasses { get; set; }
+        public EventCallback OnClick { get; set; }
+
+        public ChatButton(string icon, string additionalClasses = "")
+        {
+            Icon = icon;
+            AdditionalClasses = additionalClasses;
+        }
+
+        public static ChatButton ExpandMenuButton = new ChatButton("<svg class='feather feather-plus sc-dnqmqq jxshSx' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><line x1='12' y1='5' x2='12' y2='19' /><line x1='5' y1='12' x2='19' y2='12' /></svg>");
+        public static ChatButton EmojiButton = new ChatButton("<svg class='feather feather-smile sc-dnqmqq jxshSx' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><circle cx='12' cy='12' r='10' /><path d='M8 14s1.5 2 4 2 4-2 4-2' /><line x1='9' y1='9' x2='9.01' y2='9' /><line x1='15' y1='9' x2='15.01' y2='9' /></svg>");
+    }
+}

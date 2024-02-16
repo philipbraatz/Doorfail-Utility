@@ -1,0 +1,105 @@
+﻿@page "/textchat"
+@using System.ComponentModel.DataAnnotations
+@using System.Linq
+@using Doorfail.Core.Shop.Web.Client.Components.Chat
+
+
+<div class="--dark-theme" id="chat">
+    <div class="chat__conversation-board">
+        <ChatMessage Nickname="Henry" Avatar="https://api.multiavatar.com/Henry.svg" IsOwnMessage="false"
+                     MessageText="@(["Hey everyone!", "How are the apples?"])"></ChatMessage>
+        <ChatMessage Nickname="Jessica" Avatar="https://api.multiavatar.com/Jessica.svg" IsOwnMessage="false"
+                     MessageText="@(["What apples?"])"></ChatMessage>
+        <ChatMessage Nickname="Kevin" Avatar="https://api.multiavatar.com/Kevin.svg" IsOwnMessage="true"
+                     MessageText="@(["Sorry @Jessica, I ate them all"])"></ChatMessage>
+    </div>
+    <ChatInput OnSendMessage="SendMessage">
+        <button class="chat__conversation-panel__button panel-item btn-icon add-file-button">
+            <svg class="feather feather-plus sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+        <button class="chat__conversation-panel__button panel-item btn-icon emoji-button">
+            <svg class="feather feather-smile sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+        </button>
+    </ChatInput>
+</div>
+
+@code {
+    private List<ChatMessage> Messages { get; set; } = new();
+    private string NewMessage { get; set; }
+    private bool IsOwnMessage { get; set; } = true;
+
+    // Add the UserImage and DefaultUserImage properties here
+    private string UserImage { get; set; } = "https://xsgames.co/randomusers/avatar.php?g=male";
+    private string DefaultUserImage { get; set; } = "https://xsgames.co/randomusers/avatar.php?g=female";
+
+
+    protected override void OnInitialized()
+    {
+        Messages = [
+            new()
+            {
+                Nickname = "Henry",
+                Avatar = "https://api.multiavatar.com/Henry.svg",
+                IsOwnMessage = false,
+                MessageText = ["Hey everyone!", "How are the apples?"]
+            },
+            new()
+            {
+                Nickname = "Jessica",
+                Avatar = "https://api.multiavatar.com/Jessica.svg",
+                IsOwnMessage = false,
+                MessageText = ["What apples?"]
+            },
+            new()
+            {
+                Nickname = "Kevin",
+                Avatar = "https://api.multiavatar.com/Kevin.svg",
+                IsOwnMessage = true,
+                MessageText = ["Sorry @Jessica, I ate them all"]
+            },
+        ];
+
+        base.OnInitialized();
+    }
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrEmpty(NewMessage))
+        {
+            Messages.Add(new()
+            {
+                Nickname = "Kevin",
+                Avatar = "https://api.multiavatar.com/Kevin.svg",
+                IsOwnMessage = true,
+                MessageText = [NewMessage]
+            });
+            NewMessage = string.Empty;
+            IsOwnMessage = !IsOwnMessage;
+        }
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await SendMessage();
+        }
+    }
+
+    public class TextChatMessage
+    {
+        public bool IsOwnMessage { get; set; }
+        public string Text { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string UserName { get; set; }
+        public string Keyword { get; set; } // Add a new property to identify a keyword in the message
+    }
+}
