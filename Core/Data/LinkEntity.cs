@@ -10,5 +10,4 @@ public abstract class Link<TId, TEntity1, TEntity2, TId1, TId2>
 
     public TId1 Id1 { get => Entity1.ID; set => Entity1.ID = value; }
     public TId2 Id2 { get => Entity2.ID; set => Entity2.ID = value; }
-
 }

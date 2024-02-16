@@ -9,7 +9,7 @@
     <AssemblyName>Doorfail Core</AssemblyName>
     <RootNamespace>Doorfail.Core</RootNamespace>
     <Title>Doorfail Core</Title>
-    <Description>Core dependencies I will use throughout all my projects. Extension methods, models, utilities.</Description>
+    <Description>Core models I will use throughout all my projects.</Description>
     <Copyright>2024</Copyright>
     <Authors>Doorfail &lt;dev@doorfail.com&gt;</Authors>
     <Company>Docutie</Company>
@@ -22,10 +22,6 @@
     <AssemblyVersion>1.0.2</AssemblyVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
     <FileVersion>1.0.2</FileVersion>
-
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
-    <DockerfileRunEnvironmentFiles>config/settings.env</DockerfileRunEnvironmentFiles>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Doorfail.Core.Utils.Data
+﻿namespace Doorfail.Core.Data
 {
     public interface IDataModel<TId>
     {
@@ -12,12 +10,17 @@ namespace Doorfail.Core.Utils.Data
         DateTime UpdatedDate { get; set; }
 
         void Clear();
-        int Delete();
-        int Insert();
-        int Update();
-        void Load();
-        void Load(TId id);
-        string ToString();
 
+        int Delete();
+
+        int Insert();
+
+        int Update();
+
+        void Load();
+
+        void Load(TId id);
+
+        string ToString();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Doorfail.Core.Utils.Data;
+﻿namespace Doorfail.Core.Data;
 
 public interface IEntity<TId>
 {
