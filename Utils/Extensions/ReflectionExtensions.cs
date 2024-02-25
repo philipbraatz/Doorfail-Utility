@@ -14,7 +14,7 @@ public static class ReflectionExtensions
 
     public static void SetValue<TEntity>(this TEntity obj, string propertyName, object value)
     {
-        var propinf = typeof(TEntity).GetProperties().FirstOrDefault(c => c.Name == propertyName);
+        var propinf = typeof(TEntity).GetProperties().Where(c => c.Name == propertyName).FirstOrDefault();
         if(propinf != null)
             propinf.SetValue(obj, value);
         else
