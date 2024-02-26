@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Doorfail.Utils.Extensions;
 
@@ -27,5 +28,16 @@ namespace Doorfail.Utils.Extensions
         public static Dictionary<int, string> GetEnumCollection<TEnum>()
             => GetEnumValues<TEnum>().Zip(GetEnumKeys<TEnum>(), (x, y) =>
                 new KeyValuePair<int, string>(x, y)).ToDictionary();
+
+        public static TEnum ParseEnum<TEnum>(this string value) where TEnum : struct, Enum
+        {
+            if(Enum.TryParse(value, true, out TEnum result))
+            {
+                return result;
+            } else
+            {
+                return default;
+            }
+        }
     }
 }

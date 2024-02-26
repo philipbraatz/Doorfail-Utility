@@ -4,7 +4,7 @@ public interface INamed
 {
     #region Properties
 
-    string DisplayName { get; set; }
+    string Name { get; set; }
     string Description { get; set; }
 
     #endregion Properties
@@ -14,7 +14,7 @@ public class NamedEntity<Key> :Entity<Key>, INamed
 {
     #region Properties
 
-    public string DisplayName { get; set; }
+    public string Name { get; set; }
     public string Description { get; set; }
 
     #endregion Properties

@@ -1,0 +1,2 @@
+﻿namespace Doorfail.Core.Entities;
+
