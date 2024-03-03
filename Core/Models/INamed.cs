@@ -44,12 +44,12 @@ public class NamedEntityBlamable<Key> :NamedEntity<Key>, IBlamable<Key> where Ke
     #endregion Properties
 }
 
-public class NamedEntityBlameUpdatable<Key> :NamedEntity<Key>, IBlamable<Key>, IUpdatable where Key : notnull
+public class NamedEntityBlameUpdatable<Key, Blame> :NamedEntity<Key>, IBlamable<Blame>, IUpdatable where Key : notnull
 {
     #region Properties
 
-    public Key CreatedBy { get; set; }
-    public Key UpdatedBy { get; set; }
+    public Blame CreatedBy { get; set; }
+    public Blame UpdatedBy { get; set; }
 
     public DateTimeOffset CreatedOn { get; set; }
     public DateTimeOffset? UpdatedOn { get; set; }
