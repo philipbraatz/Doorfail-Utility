@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using System.Text.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using RestSharp;
 using RestSharp.Authenticators;
 using RestSharp.Serializers.Json;
@@ -18,21 +18,21 @@ public enum ExpirationUnit
     years
 }
 
-public class FileClient(string apiKey) : RestClient(new RestClientOptions("https://file.io")
-        {
-            Authenticator = new JwtAuthenticator(apiKey),
-        }, configureSerialization: s => s.UseSystemTextJson(new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
-        }))
+public class FileClient(string apiKey) :RestClient(new RestClientOptions("https://file.io")
+{
+    Authenticator = new JwtAuthenticator(apiKey),
+}, configureSerialization: s => s.UseSystemTextJson(new JsonSerializerOptions
+{
+    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+}))
 {
     public async Task<FileDetailsResponse> UploadFile(Stream file, string fileName, int expiresIn = 14, ExpirationUnit unit = ExpirationUnit.days, int? maxDownloads = null, bool? autoDelete = null)
     {
         var request = new RestRequest("uploadFile", Method.Post);
 
-        request.AddFile("file",() => file, fileName);
+        request.AddFile("file", () => file, fileName);
 
         request.AddParameter("expires", expiresIn + unit.ToString());
 
@@ -70,7 +70,7 @@ public class FileClient(string apiKey) : RestClient(new RestClientOptions("https
         return response.Data?.Nodes;
     }
 
-    public async Task<Stream?> DownloadFile(string  key)
+    public async Task<Stream?> DownloadFile(string key)
     {
         var request = new RestRequest("/{key}", Method.Get);
         request.AddUrlSegment("key", key);

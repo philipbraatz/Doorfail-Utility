@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Fileio;
 
 namespace Doorfail.Core.Logging;
@@ -90,7 +85,7 @@ public class TempLogManager<T>
             var line = reader.ReadLine();
             logs.Add(JsonSerializer.Deserialize<T>(line));
         }
-    
+
         return logs;
     }
 

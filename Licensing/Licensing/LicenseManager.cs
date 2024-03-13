@@ -14,7 +14,20 @@ public class LicenseManager(string fileioKey, string programName)
     public byte[] InitializationVector { get; set; } = [
         (byte)(Environment.Version.Major % 256),
         (byte)(Environment.Version.Minor % 256),
-        209, 15, 13, 108, 251, 89, 168, 189, 218, 119, 187, 88, 184, 209];
+        209,
+        15,
+        13,
+        108,
+        251,
+        89,
+        168,
+        189,
+        218,
+        119,
+        187,
+        88,
+        184,
+        209];
     private readonly string programName = programName;
     private readonly string MasterApiKey = fileioKey;
     public License License { get; private set; }
@@ -112,7 +125,7 @@ public class LicenseManager(string fileioKey, string programName)
             };
 
             manager.AddLog(licenseKey, lastLog).Wait();
-        } catch(Exception e) 
+        } catch(Exception e)
         { } // No one can hear you scream.
 
         if(license.ExpirationDate < DateTimeOffset.Now)
@@ -175,7 +188,8 @@ public class LicenseManager(string fileioKey, string programName)
 
     private static byte[] MergeKeys(byte[] key1, byte[] key2)
     {
-        if(key1.Length != key2.Length) throw new ArgumentException("Byte arrays must be of the same length");
+        if(key1.Length != key2.Length)
+            throw new ArgumentException("Byte arrays must be of the same length");
 
         var mergedKey = new byte[key1.Length];
 

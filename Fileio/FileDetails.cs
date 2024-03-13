@@ -19,7 +19,7 @@ public class FileDetails
     public DateTime Modified { get; set; }
 }
 
-public class FileDetailsResponse : FileDetails
+public class FileDetailsResponse :FileDetails
 {
     [JsonIgnore]
     public Response Response { get; set; }

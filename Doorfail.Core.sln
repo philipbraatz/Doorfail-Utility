@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Licensing", "Licensing\Lice
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fileio", "Fileio\Fileio.csproj", "{4E48FC2A-3EFC-40CA-80E0-732A0CCA443D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Email", "Emails\Email.csproj", "{AD30F4F3-85C1-4E38-9F10-8B1C53494FEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4E48FC2A-3EFC-40CA-80E0-732A0CCA443D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E48FC2A-3EFC-40CA-80E0-732A0CCA443D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E48FC2A-3EFC-40CA-80E0-732A0CCA443D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD30F4F3-85C1-4E38-9F10-8B1C53494FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD30F4F3-85C1-4E38-9F10-8B1C53494FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD30F4F3-85C1-4E38-9F10-8B1C53494FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD30F4F3-85C1-4E38-9F10-8B1C53494FEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

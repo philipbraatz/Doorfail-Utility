@@ -1,8 +1,7 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.IO.Compression;
-using System.Text.Json;
 using System.Text;
+using System.Text.Json;
 
 namespace Doorfail.Core.Models;
 

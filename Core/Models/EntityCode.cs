@@ -1,5 +1,4 @@
-﻿using Doorfail.Utils;
-using Doorfail.Utils.Extensions;
+﻿using Doorfail.Utils.Extensions;
 
 namespace Doorfail.Core.Models;
 

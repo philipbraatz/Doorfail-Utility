@@ -71,27 +71,6 @@ namespace Doorfail.Core.Util.Extensions
             return string.Join(separator.ToString(), list);
         }
 
-        public static string Replace(this string s, string oldValue, string newValue, StringComparison comparisonType)
-        {
-            if(string.IsNullOrEmpty(s) || string.IsNullOrEmpty(oldValue))
-                return s;
-            if(oldValue.Length > s.Length)
-                return s;
-            var sb = new System.Text.StringBuilder();
-            var previousIndex = 0;
-            var index = s.IndexOf(oldValue, comparisonType);
-            while(index != -1)
-            {
-                sb.Append(s, previousIndex, index - previousIndex)
-                    .Append(newValue);
-                index += oldValue.Length;
-                previousIndex = index;
-                index = s.IndexOf(oldValue, index, comparisonType);
-            }
-            sb.Append(s, previousIndex, s.Length-previousIndex);
-            return sb.ToString();
-        }
-
         public static string RemoveNonAlpha(this string input) => Regex.Replace(input, "[^a-zA-Z]", "");
     }
 }

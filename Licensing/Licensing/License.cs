@@ -1,6 +1,6 @@
-﻿using Doorfail.Core.Models;
+﻿using System.Text.Json.Serialization;
+using Doorfail.Core.Models;
 using Doorfail.Core.Util.Extensions;
-using System.Text.Json.Serialization;
 
 namespace Doorfail.Core.Licensing;
 public class License :NamedEntityUpdatable<string>
@@ -14,10 +14,10 @@ public class License :NamedEntityUpdatable<string>
 
     [JsonIgnore]
     public string ShortKey => $"{Program.RemoveNonAlpha().ToUpper()}-{Id[..8]}-{Name.RemoveNonAlpha().ToLower()}";
-    
+
     public override string ToString() => $"License for {Program} expires on {ExpirationDate:yyyy-MM-dd}. Contact {ContactInfo} for renewal.";
     public string StartupText() => $@"~ {Program} v{Version} ~
 ~ Created by {ContactInfo} ~";
 
-    
+
 }
