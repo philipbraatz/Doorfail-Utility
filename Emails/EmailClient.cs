@@ -7,8 +7,10 @@ public class EmailClient(EmailConfiguration config) :IEmailClient
     private readonly MailKit.Net.Smtp.SmtpClient Client = new();
     private EmailConfiguration Configuration { get; set; } = config;
 
-    public async Task<string> SendEmail(string fileName, MailboxAddress toAddress, IDictionary<string, string>? parameters = null)
+    public async Task<(string, TimeSpan)> SendEmail(string fileName, MailboxAddress toAddress, IDictionary<string, string>? parameters = null)
     {
+        Stopwatch timer = new();
+        timer.Start();
         string html = File.ReadAllText(fileName);
 
         Client.Connect(Configuration.Host, Configuration.Port);
@@ -18,11 +20,14 @@ public class EmailClient(EmailConfiguration config) :IEmailClient
         var result = await Client.SendAsync(email);
         await Client.DisconnectAsync(true);
 
-        return result;
+        timer.Stop();
+        return (result, timer.Elapsed);
     }
 
-    public async Task<string> SendEmails(string fileName, IEnumerable<MailboxAddress> toAddresses, IDictionary<string, string>? parameters = null)
+    public async Task<(string, TimeSpan)> SendEmails(string fileName, IEnumerable<MailboxAddress> toAddresses, IDictionary<string, string>? parameters = null)
     {
+        Stopwatch timer = new();
+        timer.Start();
         string html = File.ReadAllText(fileName);
 
         Client.Connect(Configuration.Host, Configuration.Port);
@@ -31,8 +36,8 @@ public class EmailClient(EmailConfiguration config) :IEmailClient
         MimeMessage email = CreateEmails(html, toAddresses.First(), parameters);
         var result = await Client.SendAsync(email, Configuration.FromAddress, toAddresses);
         await Client.DisconnectAsync(true);
-
-        return result;
+        timer.Stop();
+        return (result, timer.Elapsed);
     }
 
     private MimeMessage CreateEmails(string html, MailboxAddress toAddress, IDictionary<string, string> parameters)
@@ -53,7 +58,9 @@ public class EmailClient(EmailConfiguration config) :IEmailClient
     public static string PopulateTemplate(string template, IDictionary<string, string> replacements)
     {
         // Order by length to prevent replacing substrings
-        foreach(var replacement in replacements.OrderByDescending(o => o.Key.Length))
+        foreach(var replacement in replacements
+            .Where(v => !string.IsNullOrEmpty(v.Value))
+            .OrderByDescending(o => o.Key.Length))
         {
             template = template.Replace($"@{replacement.Key}", replacement.Value);
         }

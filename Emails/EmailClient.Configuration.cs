@@ -12,5 +12,5 @@ public struct EmailConfiguration
     public string FromName { get; set; }
     public string FromEmail { get; set; }
 
-    public MailboxAddress FromAddress => new(FromEmail, FromName);
+    public MailboxAddress FromAddress => new(FromName, FromEmail);
 }
