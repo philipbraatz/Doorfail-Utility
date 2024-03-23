@@ -1,19 +1,32 @@
-﻿namespace Doorfail.Utils;
-
-public static class Util
+﻿namespace Doorfail.Core.Util
 {
-    private static readonly Random rng = new();
-
-    public static void Shuffle<T>(this IList<T> list)
+    public static class Util
     {
-        var n = list.Count;
-        while(n > 1)
+        private static Random rng = new();
+
+        public static void Shuffle<T>(this IList<T> list)
         {
-            n--;
-            var k = rng.Next(n + 1);
-            var value = list[k];
-            list[k] = list[n];
-            list[n] = value;
+            var n = list.Count;
+            while(n > 1)
+            {
+                n--;
+                var k = rng.Next(n + 1);
+                var value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+        public static T CopyTo<T>(this object obj)
+        {
+            var type = obj.GetType();
+            var ret = Activator.CreateInstance<T>();
+            foreach(var prop in type.GetProperties())
+            {
+                var prop2 = typeof(T).GetProperty(prop.Name);
+                prop2?.SetValue(ret, prop.GetValue(obj));
+            }
+            return ret;
         }
     }
 }

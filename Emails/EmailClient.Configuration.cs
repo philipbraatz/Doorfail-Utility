@@ -1,7 +1,7 @@
 ﻿using MimeKit;
 
 namespace Doorfail.Core.Email;
-public struct EmailConfiguration
+public class EmailConfiguration
 {
     public string Host { get; set; }
     public int Port { get; set; }
