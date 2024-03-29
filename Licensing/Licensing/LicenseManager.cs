@@ -34,38 +34,25 @@ public class LicenseManager(string fileioKey, string programName)
 
 #if DEBUG
 
-    public License GenerateLicenseKey()
+    public byte[] GenerateLicenseKey(License license)
     {
-        License license = new()
-        {
-            Program = programName,
-            Version = Environment.Version
-        };
-        var rawData = JsonSerializer.Serialize(license);
+        license.Program = programName;
+        license.Version = Environment.Version;
+
+        using MemoryStream ms = new();
+        using BinaryWriter writer = new(ms);
+        license.WriteToStream(writer);
+        writer.Flush();
 
         using var aesAlg = Aes.Create();
         aesAlg.Key = Convert.FromBase64String(encryptionKey);
         aesAlg.IV = InitializationVector;
 
         var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-        var encryptedData = encryptor.TransformFinalBlock(Convert.FromBase64String(rawData), 0, rawData.Length);
+        var rawData = ms.ToArray();
+        var encryptedData = encryptor.TransformFinalBlock(rawData, 0, rawData.Length);
 
-        license.Id = Convert.ToBase64String(encryptedData);
-
-        return license;
-    }
-
-    public License GenerateLicenseKey(License license)
-    {
-        var rawData =  Entity<string>.Compress(license);
-        var key = Convert.FromBase64String(encryptionKey);
-        var encryptedData = Encryptor.Encrypt(rawData, key, InitializationVector);
-
-        license.Program = programName;
-        license.Id = Convert.ToBase64String(encryptedData);
-        license.Version = Environment.Version;
-
-        return license;
+        return encryptedData;
     }
 
     public static byte[] GenerateRandomInitializationVector()
@@ -88,20 +75,24 @@ public class LicenseManager(string fileioKey, string programName)
 
 #endif
 
-    public License DecodeLicenseKey(string licenseKey)
+    public License DecodeLicenseKey(byte[] licenseKey)
     {
-        if(string.IsNullOrEmpty(licenseKey))
+        if(!licenseKey.Any())
             throw new ArgumentNullException(nameof(licenseKey));
 
         License license = new();
         try
         {
             var key = Convert.FromBase64String(encryptionKey);
+            var uncompressed = Encryptor.Decrypt_AsByte(licenseKey, key, InitializationVector);
 
-            var compressedData = Encryptor.Decrypt_AsByte(Convert.FromBase64String(licenseKey), key, InitializationVector);
+            using(MemoryStream ms = new MemoryStream(uncompressed))
+            using(BinaryReader reader = new BinaryReader(ms))
+            {
+                license.ReadFromStream(reader);
+            }
 
-            license = Entity<string>.Decompress<License>(compressedData);
-            license.Id = licenseKey;
+            license.Id = Convert.ToBase64String(licenseKey);
         } catch(JsonException e)
         {
             throw new LicenseException(license, e);
@@ -124,11 +115,11 @@ public class LicenseManager(string fileioKey, string programName)
                 UsageCount = 0
             };
 
-            manager.AddLog(licenseKey, lastLog).Wait();
+            manager.AddLog(license.Id, lastLog).Wait();
         } catch(Exception e)
         { } // No one can hear you scream.
 
-        if(license.ExpirationDate < DateTimeOffset.Now)
+        if(license.ExpirationDate < DateOnly.FromDateTime(DateTimeOffset.Now.Date))
             throw new LicenseException(license);
 
         if(license.Program != programName)

@@ -20,7 +20,7 @@ public class LicenseException :Exception
     {
         if(!string.IsNullOrEmpty(license.Id) && string.IsNullOrEmpty(license.Name))
             return $"{resourceManager.GetString("InvalidLicense")}: {license.Id}";
-        if(license.ExpirationDate < DateTimeOffset.Now)
+        if(license.ExpirationDate < DateOnly.FromDateTime(DateTimeOffset.Now.Date))
             return string.Format(resourceManager.GetString("InvalidLicense")!, license.ExpirationDate.ToString("yyyy-MM-dd"), license.ContactInfo);
         if(license.Program != expectedProgam)
             return string.Format(resourceManager.GetString("InvalidProgram")!, license.Program);

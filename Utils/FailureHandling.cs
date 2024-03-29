@@ -1,4 +1,5 @@
 ﻿namespace Doorfail.Core.Util;
+
 public enum FailureHandling
 {
     ReturnNull,

@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 
 namespace Doorfail.Core.Util;
+
 public static class Encryptor
 {
     public static byte[] Encrypt<T>(T plainText, byte[] Key, byte[] IV)
@@ -30,9 +31,11 @@ public static class Encryptor
                 byte[] stringBytes = Encoding.UTF8.GetBytes(s);
                 csEncrypt.Write(stringBytes, 0, stringBytes.Length);
                 break;
+
             case byte[] b:
                 csEncrypt.Write(b, 0, b.Length);
                 break;
+
             default:
                 string jsonString = JsonSerializer.Serialize(plainText);
                 byte[] jsonBytes = Encoding.UTF8.GetBytes(jsonString);

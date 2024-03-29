@@ -1,4 +1,5 @@
-﻿using MimeKit;
+﻿using System.Diagnostics;
+using MimeKit;
 
 namespace Doorfail.Core.Email;
 

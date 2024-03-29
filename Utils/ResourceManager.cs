@@ -5,6 +5,7 @@ using static Doorfail.Core.Util.ResourceManager;
 using Resource = System.Resources.ResourceManager;
 
 namespace Doorfail.Core.Util;
+
 public class ResourceManager(IEnumerable<Resource> managers, DefaultMissingValue defaultValue = DefaultMissingValue.MissingKey, FailureHandling onFailure = FailureHandling.ReturnNull)
 {
     public enum DefaultMissingValue
@@ -32,6 +33,7 @@ public class ResourceManager(IEnumerable<Resource> managers, DefaultMissingValue
         }
         return null;
     }
+
     public string GetString(string key, CultureInfo culture)
     {
         foreach(var resourceManager in resourceManagers)
@@ -52,15 +54,17 @@ public class ResourceManager(IEnumerable<Resource> managers, DefaultMissingValue
         {
             case FailureHandling.ReturnNull:
                 return null;
+
             case FailureHandling.Log:
                 Console.WriteLine(message);
                 break;
+
             case FailureHandling.Throw:
                 throw new MissingManifestResourceException(message) { Data = { ["Key"] = key } };
             case FailureHandling.ThrowAndLog:
                 Console.WriteLine(message);
                 throw new MissingManifestResourceException(message) { Data = { ["Key"] = key } };
-        };  
+        };
 
         return missing switch
         {
@@ -71,5 +75,4 @@ public class ResourceManager(IEnumerable<Resource> managers, DefaultMissingValue
             DefaultMissingValue.MissingKey => $"[MISSING '{key}']",
         };
     }
-
 }

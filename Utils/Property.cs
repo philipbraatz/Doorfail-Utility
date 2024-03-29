@@ -1,43 +1,44 @@
 ﻿using System.Reflection;
 
-namespace Doorfail.Utils;
-
-//PropertyInfo with custom info
-//Max
-public class PropertyDB_Info<TEntity>
+namespace Doorfail.Core.Util
 {
-    public int Max { get; private set; }
-    public PropertyInfo Info;
-
-    public PropertyDB_Info(PropertyInfo info, TEntity entity)
+    //PropertyInfo with custom info
+    //Max
+    public class PropertyDB_Info<TEntity>
     {
-        Info = info;
-        loadPropertyMax(entity);
-    }
+        public int Max { get; private set; }
+        public PropertyInfo Info;
 
-    private void loadPropertyMax(TEntity entity)
-    {
-        if(Info.Name != "String")
-            Max = -1;
-        else
+        public PropertyDB_Info(PropertyInfo info, TEntity entity)
         {
-            //int? nmax = context.GetMaxLength<TEntity>((x) => (string)Info.GetValue(entity));
-            //Max = nmax != null ? (int)nmax : -1;
+            Info = info;
+            loadPropertyMax(entity);
+        }
+
+        private void loadPropertyMax(TEntity entity)
+        {
+            if(Info.Name != "String")
+                Max = -1;
+            else
+            {
+                //int? nmax = context.GetMaxLength<TEntity>((x) => (string)Info.GetValue(entity));
+                //Max = nmax != null ? (int)nmax : -1;
+            }
         }
     }
-}
 
-public class PropertyException :Exception
-{
-    public PropertyException() : base()
+    public class PropertyException :Exception
     {
-    }
+        public PropertyException() : base()
+        {
+        }
 
-    public PropertyException(Type tEntity, string propertyName) : base(tEntity + " does not have the property " + propertyName)
-    {
-    }
+        public PropertyException(Type tEntity, string propertyName) : base(tEntity + " does not have the property " + propertyName)
+        {
+        }
 
-    public PropertyException(Type tEntity, string propertyName, Exception innerException) : base(tEntity + " does not have the property " + propertyName, innerException)
-    {
+        public PropertyException(Type tEntity, string propertyName, Exception innerException) : base(tEntity + " does not have the property " + propertyName, innerException)
+        {
+        }
     }
 }

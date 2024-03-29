@@ -1,6 +1,7 @@
 ﻿using MimeKit;
 
 namespace Doorfail.Core.Email;
+
 public class EmailConfiguration
 {
     public string Host { get; set; }
