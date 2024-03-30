@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Text;
 using Polly;
 using RestSharp;
@@ -9,6 +11,9 @@ public class RateLimitedClient :RestClient
 {
     private Dictionary<double, int> _rateLimitThresholds;
     private int maxRetryAttempts = 3;
+
+    public int RateLimit { get; private set; }
+    public int RateLimitRemaining { get; private set; }
 
     public RateLimitedClient(RestClientOptions options, Dictionary<double, int> rateLimitThresholds, ConfigureHeaders? configureDefaultHeaders = null, ConfigureSerialization? configureSerialization = null, bool useClientFactory = false) : base(options, configureDefaultHeaders, configureSerialization, useClientFactory)
     {
@@ -54,12 +59,12 @@ public class RateLimitedClient :RestClient
 
     private void EnforceRateLimit(RestResponse response)
     {
-        var rateLimitRemaining = int.Parse(response.Headers.FirstOrDefault(h => h.Name == "X-RateLimit-Remaining")?.Value.ToString());
-        var rateLimitTotal = int.Parse(response.Headers.FirstOrDefault(h => h.Name == "X-RateLimit-Limit")?.Value.ToString());
+        RateLimitRemaining = int.Parse(response.Headers.FirstOrDefault(h => h.Name == "X-RateLimit-Remaining")?.Value.ToString());
+        RateLimit = int.Parse(response.Headers.FirstOrDefault(h => h.Name == "X-RateLimit-Limit")?.Value.ToString());
 
         foreach(var threshold in _rateLimitThresholds.OrderByDescending(t => t.Key))
         {
-            if((double)rateLimitRemaining / rateLimitTotal < threshold.Key)
+            if((double)RateLimitRemaining / RateLimit < threshold.Key)
             {
                 // Pause execution
                 Thread.Sleep(threshold.Value);
@@ -78,12 +83,12 @@ public class RateLimitedClient :RestClient
         {
             response = await base.ExecuteAsync(request, cancellationToken);
 
-            var httpResponseMessage = new HttpResponseMessage((HttpStatusCode)response.StatusCode)
+            var httpResponseMessage = new HttpResponseMessage(response.StatusCode)
             {
                 Content = new StringContent(response.Content, Encoding.UTF8, response.ContentType),
                 ReasonPhrase = response.StatusDescription,
-                RequestMessage = new HttpRequestMessage(new HttpMethod(request.Method.ToString()), new Uri(request.Resource)),
-                StatusCode = (HttpStatusCode)response.StatusCode,
+                RequestMessage = new HttpRequestMessage(new HttpMethod(request.Method.ToString()), response.ResponseUri),
+                StatusCode = response.StatusCode,
             };
 
             foreach(var header in response.Headers)
