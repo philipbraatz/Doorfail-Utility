@@ -50,8 +50,11 @@ public class LicenseManager(string fileioKey, string programName)
 
         var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
         var rawData = ms.ToArray();
+        //Console.WriteLine($"Raw data: {Convert.ToBase64String(rawData)}");
+
         var encryptedData = encryptor.TransformFinalBlock(rawData, 0, rawData.Length);
 
+        //Console.WriteLine($"Encrypted data: {Convert.ToBase64String(encryptedData)}");
         return encryptedData;
     }
 
@@ -83,8 +86,11 @@ public class LicenseManager(string fileioKey, string programName)
         License license = new();
         try
         {
+            //Console.WriteLine($"Encrypted data: {Convert.ToBase64String(licenseKey)}");
+
             var key = Convert.FromBase64String(encryptionKey);
             var uncompressed = Encryptor.Decrypt_AsByte(licenseKey, key, InitializationVector);
+            //Console.WriteLine($"Raw data: {Convert.ToBase64String(uncompressed)}");
 
             using(MemoryStream ms = new MemoryStream(uncompressed))
             using(BinaryReader reader = new BinaryReader(ms))

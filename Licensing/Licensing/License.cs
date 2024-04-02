@@ -21,59 +21,63 @@ public class License :NamedEntityUpdatable<string>
 
     public void WriteToStream(BinaryWriter writer)
     {
-        writer.Write(ExpirationDate.Year);
+        var i = 0;
+        //Console.WriteLine("Length");
+        writer.Write((int)ExpirationDate.Year);
+        //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
         writer.Write((short)ExpirationDate.Month);
+        //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
         writer.Write((short)ExpirationDate.Day);
+        //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
         writer.Write((short)FeatureAccess);
+        //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
+        writer.Write((int)Version.Major);
+        //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
+        writer.Write((int)Version.Minor);
+        //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
+        writer.Write((string)Program.ToString());
+        //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
+        writer.Write((string)Name);
+        //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
+        writer.Write((string)ContactInfo);
+        //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
 
-        var contactInfo =StringCompressor.Compress(ContactInfo);
-        writer.Write((short)contactInfo.Length);
-        //writer.Write(ContactInfo.ToCharArray().Select(s => (byte)s).ToArray());
-        Console.WriteLine($"ContactInfo Compressed '{StringCompressor.Decompress(contactInfo)}'|"+Convert.ToBase64String(contactInfo) +"|"+ contactInfo.Length);
-        writer.Write(contactInfo);
-
-        var program =//StringCompressor.Compress(
-                     Program;//);
-        //writer.Write((short)program.Length);
-        writer.Write(program);
-
-        writer.Write(Version.ToString());
+        // Write an array of Keys
         writer.Write((short)Keys.Length);
-        foreach(var key in Keys)
+        foreach (var key in Keys)
         {
             writer.Write(key);
         }
 
-        byte[]? name =StringCompressor.Compress(Name);
-        writer.Write(name.Length);
-        writer.Write(name);
-
-        byte[]? desc =StringCompressor.Compress(Description);
-        writer.Write(desc.Length);
-        writer.Write(desc);
     }
 
     public void ReadFromStream(BinaryReader r)
     {
-        ExpirationDate = new DateOnly(r.ReadInt32(), r.ReadInt16(), r.ReadInt16());
+        var i = 0;
+        //Console.WriteLine($"Length: {r.BaseStream.Length}");
+        var t1 = r.ReadInt32();
+        //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
+        var t2 = r.ReadInt16();
+        //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
+        var t3 = r.ReadInt16();
+        //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
+        ExpirationDate = new DateOnly(t1,t2, t3);
         FeatureAccess = r.ReadInt16();
-
-        var compressedInfo = r.ReadBytes(r.ReadInt16());
-        Console.WriteLine($"ContactInfo Compressed '{StringCompressor.Decompress(compressedInfo)}'|"+Convert.ToBase64String(compressedInfo) +"|"+ compressedInfo.Length);
-        ContactInfo = StringCompressor.Decompress(compressedInfo);
-        //var compressedInfo = r.ReadBytes(r.ReadInt16());
-        //ContactInfo = new string(compressedInfo.Select(s => (char)s).ToArray());
-
-        //compressedInfo = r.ReadBytes(r.ReadInt16());
-        Program = r.ReadString();//StringCompressor.Decompress(compressedInfo);
-
-        Version = new Version(r.ReadString());
-        Keys = new string[r.ReadInt16()];
-        for(int i = 0; i < Keys.Length; i++)
-        {
-            Keys[i] = r.ReadString();
-        }
-        Name = StringCompressor.Decompress(r.ReadBytes(r.ReadInt32()));
-        Description = StringCompressor.Decompress(r.ReadBytes(r.ReadInt32()));
+        //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
+        var major = r.ReadInt32();
+        //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
+        var minor = r.ReadInt32();
+        //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
+        Version = new Version(major, minor);
+        Program = r.ReadString();
+        //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
+        Name = r.ReadString();
+        //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
+        ContactInfo = r.ReadString();
+        //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
+        
+        // Read an array of Keys
+        var keyCount = r.ReadInt16();
+        Keys = new string[keyCount];
     }
 }

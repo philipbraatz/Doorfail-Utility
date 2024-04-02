@@ -19,14 +19,21 @@
 
         public static T CopyTo<T>(this object obj)
         {
-            var type = obj.GetType();
             var ret = Activator.CreateInstance<T>();
+            obj.CopyTo(ret);
+            return ret;
+        }
+        public static void CopyTo<T>(this object from, T to)
+        {
+            if(from is null || to is null)
+            { throw new ArgumentNullException(from is null ? nameof(from) : nameof(to)); }
+            var type = from.GetType();
             foreach(var prop in type.GetProperties())
             {
-                var prop2 = typeof(T).GetProperty(prop.Name);
-                prop2?.SetValue(ret, prop.GetValue(obj));
+                var prop2 = typeof(T).GetProperty(prop.Name);//, System.Reflection.BindingFlags.SetField | System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Public);
+                if(prop2.SetMethod is not null)
+                    prop2.SetValue(to, prop.GetValue(from));
             }
-            return ret;
         }
     }
 }
