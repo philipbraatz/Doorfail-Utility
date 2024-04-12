@@ -46,7 +46,7 @@ public class EmailClient(EmailConfiguration config) :IEmailClient
         html = PopulateTemplate(html, parameters);
 
         return new(
-            from: [new MailboxAddress(Configuration.Username, "!active@email.com")],
+            from: [new MailboxAddress(Configuration.From, Configuration.FromEmail)],
             to: [toAddress],
             subject: subject,
             body: new TextPart(MimeKit.Text.TextFormat.Html)
