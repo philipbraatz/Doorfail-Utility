@@ -1,10 +1,16 @@
+<<<<<<< HEAD:Licensing/Licensing/LicenseException.cs
 ﻿using System.Resources;
 using Doorfail.Core.Models;
+=======
+﻿using System.Reflection;
+using System.Resources;
+using Doorfail.Core.Entities;
+>>>>>>> 21c1286 (String fixes):DoorfailCore/Licensing/LicenseException.cs
 
 namespace Doorfail.Core.Licensing;
 public class LicenseException :Exception
 {
-    private static readonly ResourceManager resourceManager = new("Doorfail.Core.Resources.Licensing.Strings", typeof(LicenseException).Assembly);
+    private static readonly ResourceManager resourceManager = new($"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Licensing.Strings", Assembly.GetExecutingAssembly());
 
     public LicenseException(License license) : base(GenerateMessage(license))
     { }
@@ -21,7 +27,7 @@ public class LicenseException :Exception
         if(!string.IsNullOrEmpty(license.Id) && string.IsNullOrEmpty(license.Name))
             return $"{resourceManager.GetString("InvalidLicense")}: {license.Id}";
         if(license.ExpirationDate < DateOnly.FromDateTime(DateTimeOffset.Now.Date))
-            return string.Format(resourceManager.GetString("InvalidLicense")!, license.ExpirationDate.ToString("yyyy-MM-dd"), license.ContactInfo);
+            return string.Format(resourceManager.GetString("ExpiredLicense")!, license.ExpirationDate.ToString("yyyy-MM-dd"), license.ContactInfo);
         if(license.Program != expectedProgam)
             return string.Format(resourceManager.GetString("InvalidProgram")!, license.Program);
 
