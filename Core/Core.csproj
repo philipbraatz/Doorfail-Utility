@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Dll</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+
+    <AssemblyName>Doorfail Core</AssemblyName>
+    <RootNamespace>Doorfail.Core</RootNamespace>
+    <Title>Doorfail Core</Title>
+    <Description>Core dependencies I will use throughout all my projects. Extension methods, models, utilities.</Description>
+    <Copyright>2024</Copyright>
+    <Authors>Doorfail &lt;dev@doorfail.com&gt;</Authors>
+    <Company>Docutie</Company>
+    <Product>Doorfail.Core</Product>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+
+    <Configurations>Release</Configurations>
+    <PackageTags>Receipt;Email;Discord</PackageTags>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <FileVersion>1.0.2</FileVersion>
+
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+    <DockerfileRunEnvironmentFiles>config/settings.env</DockerfileRunEnvironmentFiles>
+  </PropertyGroup>
+</Project>
