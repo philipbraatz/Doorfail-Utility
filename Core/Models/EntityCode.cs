@@ -1,4 +1,7 @@
-﻿namespace Doorfail.Core.Data;
+﻿using Doorfail.Utils;
+using Doorfail.Utils.Extensions;
+
+namespace Doorfail.Core.Models;
 
 internal enum EntityCode
 {
@@ -33,37 +36,25 @@ internal class EntityException :Exception
         Code = code;
     }
 
-    public override string Message
+    public override string Message => Code switch
     {
-        get
-        {
-            switch(Code)
-            {
-                case EntityCode.INSERTED:
-                case EntityCode.UPDATED:
-                case EntityCode.DELETED:
-                    return $"Cannot {EnumExtensions.ToTitleCase(Code)} {ClassName}";
+        EntityCode.INSERTED => $"Cannot {Code.ToTitleCase()} {ClassName}",
+        EntityCode.UPDATED => $"Cannot {Code.ToTitleCase()} {ClassName}",
+        EntityCode.DELETED => $"Cannot {Code.ToTitleCase()} {ClassName}",
 
-                case EntityCode.DISABLED:
-                    return $"You do not have permission to modify a {Code.ToTitleCase()} {ClassName}";
+        EntityCode.DISABLED => $"You do not have permission to modify a {Code.ToTitleCase()} {ClassName}",
 
-                case EntityCode.ID_NOT_FOUND:
-                    return $"{ClassName} does not have an entity with that Id";
+        EntityCode.ID_NOT_FOUND => $"{ClassName} does not have an entity with that Id",
 
-                case EntityCode.NOT_INSERTED:
-                    return $"Failed to Insert entity";
+        EntityCode.NOT_INSERTED => $"Failed to Insert entity",
 
-                case EntityCode.NOT_UPDATED:
-                    return $"Failed to Update entity";
+        EntityCode.NOT_UPDATED => $"Failed to Update entity",
 
-                case EntityCode.NOT_DELETED:
-                    return $"Failed to Delete entity";
+        EntityCode.NOT_DELETED => $"Failed to Delete entity",
 
-                case EntityCode.NOT_UNIQUE:
-                    return $"{ClassName} already exists within the database";
-            };
-        }
-    }
+        EntityCode.NOT_UNIQUE => $"{ClassName} already exists within the database",
+        _ => throw new NotImplementedException()
+    };
 
     public override string ToString()
     {

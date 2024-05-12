@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Doorfail.Core.Data
+namespace Doorfail.Core.Models
 {
     public abstract class KeyValue<TId, TKey, TValue>
     {

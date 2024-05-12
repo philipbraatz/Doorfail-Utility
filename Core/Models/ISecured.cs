@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Doorfail.Core.Entities
+namespace Doorfail.Core.Models
 {
     public interface ISecured
     {
@@ -15,10 +15,10 @@ namespace Doorfail.Core.Entities
         // Encrypt the string with salt using a secure algorithm
         public static ISecured Encrypt(string secret, string salt)
         {
-            using SHA256 sha256 = SHA256.Create();
-            byte[] secretBytes = Encoding.UTF8.GetBytes(secret + salt);
-            byte[] hashBytes = sha256.ComputeHash(secretBytes);
-            string hash = BitConverter.ToString(hashBytes).Replace("-", string.Empty);
+            using var sha256 = SHA256.Create();
+            var secretBytes = Encoding.UTF8.GetBytes(secret + salt);
+            var hashBytes = sha256.ComputeHash(secretBytes);
+            var hash = BitConverter.ToString(hashBytes).Replace("-", string.Empty);
 
             return new PrivateEntity
             {
@@ -28,10 +28,10 @@ namespace Doorfail.Core.Entities
 
         public static bool Verify(ISecured secured, string secret, string salt)
         {
-            using SHA256 sha256 = SHA256.Create();
-            byte[] secretBytes = Encoding.UTF8.GetBytes(secret + salt);
-            byte[] hashBytes = sha256.ComputeHash(secretBytes);
-            string hash = BitConverter.ToString(hashBytes).Replace("-", string.Empty);
+            using var sha256 = SHA256.Create();
+            var secretBytes = Encoding.UTF8.GetBytes(secret + salt);
+            var hashBytes = sha256.ComputeHash(secretBytes);
+            var hash = BitConverter.ToString(hashBytes).Replace("-", string.Empty);
 
             return secured.Hash == hash;
         }

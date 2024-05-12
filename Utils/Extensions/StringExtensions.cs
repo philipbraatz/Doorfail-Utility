@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Doorfail.Utils.Extensions;
+﻿namespace Doorfail.Utils.Extensions;
 
 public static class StringExtensions
 {
@@ -17,8 +15,6 @@ public static class StringExtensions
     public static string ToCamelCase(this string s) => string.IsNullOrEmpty(s) ? s : char.ToLower(s[0]) + s.Substring(1);
 
     public static string ToPascalCase(this string s) => string.IsNullOrEmpty(s) ? s : char.ToUpper(s[0]) + s.Substring(1);
-
-    public static string ToTitleCase(this string str) => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
 
     public static string ToSnakeCase(this string s) => string.IsNullOrEmpty(s) ? s
         : string.Concat(s.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();

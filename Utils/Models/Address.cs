@@ -1,7 +1,7 @@
-﻿namespace Doorfail.Core.Util.Models;
+﻿namespace Doorfail.Utils.Models;
 public class Address
 {
-    public string? POBox { get; set; }
+    public string POBox { get; set; }
     public string Street { get; set; }
     public string City { get; set; }
     public string State { get; set; }

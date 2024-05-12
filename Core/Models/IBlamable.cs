@@ -1,4 +1,4 @@
-﻿namespace Doorfail.Core.Entities;
+﻿namespace Doorfail.Core.Models;
 
 public interface IBlamable<Key>
 {

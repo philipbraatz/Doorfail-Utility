@@ -2,41 +2,31 @@
 using System.Reflection;
 using Doorfail.Utils.Extensions;
 
-namespace Doorfail.Utils.Extensions
+namespace Doorfail.Utils.Extensions;
+
+public static class EnumExtensions
 {
-    public static class EnumExtensions
+    public static string GetDisplayName<TEnum>(this TEnum enumValue)
+        where TEnum : Enum
     {
-        public static string GetDisplayName<TEnum>(this TEnum enumValue)
-            where TEnum : Enum
-        {
-            return enumValue.GetType()
-                .GetMember(enumValue.ToString())
-                .First()
-                .GetCustomAttribute<DisplayAttribute>()
-                .GetName();
-        }
-
-        public static string ToTitleCase<TEnum>(this TEnum str)
-             where TEnum : Enum
-            => str.ToString().ToTitleCase();
-
-        public static string[] GetEnumKeys<TEnum>() => Enum.GetNames(typeof(TEnum));
-
-        public static int[] GetEnumValues<TEnum>() => (int[])Enum.GetValues(typeof(TEnum));
-
-        public static Dictionary<int, string> GetEnumCollection<TEnum>()
-            => GetEnumValues<TEnum>().Zip(GetEnumKeys<TEnum>(), (x, y) =>
-                new KeyValuePair<int, string>(x, y)).ToDictionary();
-
-        public static TEnum ParseEnum<TEnum>(this string value) where TEnum : struct, Enum
-        {
-            if(Enum.TryParse(value, true, out TEnum result))
-            {
-                return result;
-            } else
-            {
-                return default;
-            }
-        }
+        return enumValue.GetType()
+            .GetMember(enumValue.ToString())
+            .First()
+            .GetCustomAttribute<DisplayAttribute>()
+            .GetName();
     }
+
+    public static string ToTitleCase<TEnum>(this TEnum str)
+         where TEnum : Enum
+        => str.ToString().ToTitleCase();
+
+    public static string[] GetEnumKeys<TEnum>() => Enum.GetNames(typeof(TEnum));
+
+    public static int[] GetEnumValues<TEnum>() => (int[])Enum.GetValues(typeof(TEnum));
+
+    public static Dictionary<int, string> GetEnumCollection<TEnum>()
+        => GetEnumValues<TEnum>().Zip(GetEnumKeys<TEnum>(), (x, y) =>
+            new KeyValuePair<int, string>(x, y)).ToDictionary();
+
+    public static TEnum ParseEnum<TEnum>(this string value) where TEnum : struct, Enum => Enum.TryParse(value, true, out TEnum result) ? result : default;
 }

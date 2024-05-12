@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Doorfail.Core.Entities;
+namespace Doorfail.Core.Models;
 
 public interface IEntity<Key> where Key : notnull
 {
@@ -12,15 +12,15 @@ public class Entity<Key> :IEquatable<Entity<Key>>, IEntity<Key> where Key : notn
     [Key]
     public Key Id { get; set; }
 
-    public bool Equals(Entity<Key>? other) => Id.Equals(other);
+    public bool Equals(Entity<Key> other) => Id.Equals(other);
 
-    public override bool Equals(object? obj) => obj is Entity<Key> entity && entity.Id.Equals(entity.Id);
+    public override bool Equals(object obj) => obj is Entity<Key> entity && entity.Id.Equals(entity.Id);
 
     public override int GetHashCode() => Id.GetHashCode();
 
-    public static bool operator ==(Entity<Key>? left, Entity<Key>? right) => left?.Equals(right) ?? right is null;
+    public static bool operator ==(Entity<Key> left, Entity<Key> right) => left?.Equals(right) ?? right is null;
 
-    public static bool operator !=(Entity<Key>? left, Entity<Key>? right) => !(left == right);
+    public static bool operator !=(Entity<Key> left, Entity<Key> right) => !(left == right);
 
     public override string ToString() => $"{GetType().Name} {Id}";
 }

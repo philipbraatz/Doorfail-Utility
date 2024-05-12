@@ -1,4 +1,4 @@
-﻿namespace Doorfail.Core.Util.Models;
+﻿namespace Doorfail.Utils.Models;
 internal class TimeOfDay
 {
 }

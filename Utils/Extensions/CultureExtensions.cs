@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
 
-namespace Doorfail.Core.Utils.Extensions;
+namespace Doorfail.Utils.Extensions;
 
-internal class CultureExtensions
+internal static class CultureExtensions
 {
     public static string ToTitleCase(this string str)
         => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());

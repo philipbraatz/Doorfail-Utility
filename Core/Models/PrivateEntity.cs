@@ -1,2 +1,2 @@
-﻿namespace Doorfail.Core.Entities;
+﻿namespace Doorfail.Core.Models;
 

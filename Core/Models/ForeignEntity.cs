@@ -1,4 +1,4 @@
-﻿namespace Doorfail.Core.Data;
+﻿namespace Doorfail.Core.Models;
 
 public abstract class ForeignEntity<Tid, Fid> :Entity<Tid>
 {
