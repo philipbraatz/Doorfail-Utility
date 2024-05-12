@@ -41,8 +41,4 @@ public class PropertyException :Exception
     public PropertyException(Type tEntity, string propertyName, Exception innerException) : base(tEntity + " does not have the property " + propertyName, innerException)
     {
     }
-
-    protected PropertyException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }
