@@ -5,10 +5,7 @@ namespace Doorfail.Core.Util.Extensions
 {
     public static class ReflectionExtensions
     {
-        public static bool HasProperty(this Type obj, string propertyName)
-        {
-            return obj.GetProperty(propertyName) != null;
-        }
+        public static bool HasProperty(this Type obj, string propertyName) => obj.GetProperty(propertyName) != null;
 
         public static object GetValue<TEntity>(this TEntity obj, string propertyName)
         {

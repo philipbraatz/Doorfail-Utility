@@ -1,11 +1,6 @@
-<<<<<<< HEAD:Licensing/Licensing/LicenseException.cs
-﻿using System.Resources;
-using Doorfail.Core.Models;
-=======
 ﻿using System.Reflection;
 using System.Resources;
-using Doorfail.Core.Entities;
->>>>>>> 21c1286 (String fixes):DoorfailCore/Licensing/LicenseException.cs
+using Doorfail.Core.Models;
 
 namespace Doorfail.Core.Licensing;
 public class LicenseException :Exception
