@@ -66,7 +66,9 @@ public partial class DoorClient :RestClient
         if(body is null)
             return request;
 
-        //TODO pass in a serializer that can handle special cases instead of doing the conversions here
+        request.AddHeader("content-type", "application/json");
+
+        //TODO pass in a serialize that can handle special cases instead of doing the conversions here
         var t = body.GetType();
         if(t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Dictionary<,>))
         {
@@ -76,7 +78,7 @@ public partial class DoorClient :RestClient
                 Dictionary<string, object> stringDict = [];
                 foreach(var k in ((IDictionary)body).Keys)
                 {
-                    stringDict.Add(JsonSerializer.Serialize(k, new JsonSerializerOptions { IncludeFields = true }), ((IDictionary)body)[k]);
+                    stringDict.Add(JsonSerializer.Serialize(k, new JsonSerializerOptions { IncludeFields = true }), (body as IDictionary)[k]);
                 }
                 request.AddJsonBody(stringDict);
                 return request;
@@ -106,7 +108,6 @@ public partial class DoorClient :RestClient
             RequestFormat = DataFormat.Json,
             //Timeout = specifiedTimeout ?? Timeout
         };
-        request.AddHeader("content-type", "application/json");
 
         //if(specifiedTimeout is not null) // Add timeout to headers
         //{ request.AddHeader("timeout", specifiedTimeout.Value!.ToString()); }

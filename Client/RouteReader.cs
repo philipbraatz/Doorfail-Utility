@@ -1,4 +1,5 @@
-﻿using System.Reflection; // Done without Mvc library due to incompatibility with Blazor WebAssembly
+﻿// Done without Mvc library due to incompatibility with Blazor WebAssembly
+using System.Reflection;
 
 namespace Doorfail.Core.Client;
 

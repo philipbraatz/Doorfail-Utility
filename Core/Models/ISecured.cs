@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace Doorfail.Core.Entities
@@ -15,7 +8,7 @@ namespace Doorfail.Core.Entities
         public string Hash { get; set; }
     }
 
-    public class PrivateEntity : ISecured
+    public class PrivateEntity :ISecured
     {
         public string Hash { get; set; }
 

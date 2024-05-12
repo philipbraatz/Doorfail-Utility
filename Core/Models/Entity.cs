@@ -30,18 +30,18 @@ public interface IOneToOne<Key> where Key : notnull
     Key? RelatedId { get; set; }
 }
 
-public class OneToOneEntity<Key> : Entity<Key>, IOneToOne<Key>
+public class OneToOneEntity<Key> :Entity<Key>, IOneToOne<Key>
     where Key : notnull
 {
     public Key? RelatedId { get; set; }
 }
 
-public interface  IOneToMany<Key> where Key : notnull
+public interface IOneToMany<Key> where Key : notnull
 {
     List<Key> RelatedIds { get; set; }
 }
 
-public class OneToManyEntity<Key> : Entity<Key>, IOneToMany<Key>
+public class OneToManyEntity<Key> :Entity<Key>, IOneToMany<Key>
     where Key : notnull
 {
     public List<Key> RelatedIds { get; set; } = [];

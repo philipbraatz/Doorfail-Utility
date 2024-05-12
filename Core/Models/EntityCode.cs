@@ -1,7 +1,4 @@
-﻿using System.Runtime.Serialization;
-using Doorfail.Utils.Extensions;
-
-namespace Doorfail.Core.Data;
+﻿namespace Doorfail.Core.Data;
 
 internal enum EntityCode
 {

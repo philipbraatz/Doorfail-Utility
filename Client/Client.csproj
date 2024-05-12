@@ -4,27 +4,27 @@
       <TargetFramework>net8.0</TargetFramework>
       <ImplicitUsings>enable</ImplicitUsings>
       <Nullable>enable</Nullable>
+
+      <AssemblyName>Doorfail Client</AssemblyName>
+      <RootNamespace>Doorfail.Client</RootNamespace>
+      <Title>Doorfail Core Client</Title>
+      <Description>RestSharp client wrapper.</Description>
+      <Copyright>2024</Copyright>
+      <Authors>Doorfail &lt;dev@doorfail.com&gt;</Authors>
+      <Company>Docutie</Company>
+      <Product>Doorfail.Client</Product>
+      <ApplicationIcon>icon.ico</ApplicationIcon>
+      <PackageReadmeFile>readme.md</PackageReadmeFile>
+
+      <Configurations>Release</Configurations>
+      <PackageTags>Doorfail;Client;HTTPS;Request</PackageTags>
+      <AssemblyVersion>1.0.2</AssemblyVersion>
+      <NeutralLanguage>en-US</NeutralLanguage>
+      <FileVersion>1.0.2</FileVersion>
     </PropertyGroup>
   
     <ItemGroup>
       <PackageReference Include="NLog" Version="5.2.8" />
       <PackageReference Include="RestSharp" Version="110.2.0" />
     </ItemGroup>
-
-  <AssemblyName>Doorfail Client</AssemblyName>
-  <RootNamespace>Doorfail.Client</RootNamespace>
-  <Title>Doorfail Core Client</Title>
-  <Description>Core models I will use throughout all my projects.</Description>
-  <Copyright>2024</Copyright>
-  <Authors>Doorfail &lt;dev@doorfail.com&gt;</Authors>
-  <Company>Docutie</Company>
-  <Product>Doorfail.Client</Product>
-  <ApplicationIcon>icon.ico</ApplicationIcon>
-  <PackageReadmeFile>readme.md</PackageReadmeFile>
-
-  <Configurations>Release</Configurations>
-  <PackageTags>Doorfail;Client;HTTPS;Request</PackageTags>
-  <AssemblyVersion>1.0.2</AssemblyVersion>
-  <NeutralLanguage>en-US</NeutralLanguage>
-  <FileVersion>1.0.2</FileVersion>
   </Project>
