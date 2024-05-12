@@ -45,7 +45,6 @@ public static class Encryptor
         return msEncrypt.ToArray();
     }
 
-
     private static MemoryStream Decrypt(byte[] cipherText, byte[] Key, byte[] IV)
     {
         // Check arguments.

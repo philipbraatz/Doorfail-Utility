@@ -24,8 +24,8 @@ public class NamedEntityUpdatable<Key> :NamedEntity<Key>, IUpdatable where Key :
 {
     #region Properties
 
-    public DateTimeOffset CreatedOn { get; set; }
-    public DateTimeOffset? UpdatedOn { get; set; }
+    public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.Now;
+    public DateTimeOffset? UpdatedOn { get; set; } = DateTimeOffset.Now;
     public bool IsDeactivated { get; set; }
 
     #endregion Properties

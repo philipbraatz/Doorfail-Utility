@@ -15,10 +15,6 @@ public class License :NamedEntityUpdatable<string>
     [JsonIgnore]
     public string ShortKey => $"{Program.RemoveNonAlpha().ToUpper()}-{Id[..8]}-{Name.RemoveNonAlpha().ToLower()}";
     
-    public License()
-    {
-        CreatedOn = DateTimeOffset.Now;
-    }
     public override string ToString() => $"License for {Program} expires on {ExpirationDate:yyyy-MM-dd}. Contact {ContactInfo} for renewal.";
     public string StartupText() => $@"~ {Program} v{Version} ~
 ~ Created by {ContactInfo} ~";
