@@ -1,0 +1,1 @@
+Core Models and methods I will use throughout all my projects.

@@ -4,10 +4,41 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <AssemblyName>Doorfail.Fileio</AssemblyName>
+    <RootNamespace>Doorfail.Fileio</RootNamespace>
+    <Title>Doorfail Email</Title>
+    <Description>My custom wrapper for https://file.io API. Supports uploading, downloading, retrieving, and deleting files. I do not own file.io, please follow their TOS https://www.file.io/tos/</Description>
+    <Copyright>2024</Copyright>
+    <Authors>Doorfail &lt;dev@doorfail.com&gt;</Authors>
+    <Company>Docutie</Company>
+    <Product>Doorfail.Core</Product>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+
+    <PackageLicenseExpression>Apache License 2.0</PackageLicenseExpression>
+    <Configurations>Release</Configurations>
+    <PackageTags>file;storage;api;temporary</PackageTags>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <FileVersion>1.0.2</FileVersion>
   </PropertyGroup>
+
+  <Target Name="PostPackNugetDeploy" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="dotnet nuget push &quot;$(OutputPath)../$(AssemblyName).$(PackageVersion).nupkg&quot; --source &quot;https://www.nuget.org&quot;" />
+  </Target>
+
 
   <ItemGroup>
     <PackageReference Include="RestSharp" Version="110.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="readme.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.ico" />
+  </ItemGroup>
+  
 </Project>

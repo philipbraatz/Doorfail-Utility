@@ -4,7 +4,7 @@ using RestSharp;
 using RestSharp.Authenticators;
 using RestSharp.Serializers.Json;
 
-namespace Fileio;
+namespace Doorfail.Fileio;
 
 public enum ExpirationUnit
 {
@@ -76,7 +76,7 @@ public class FileClient(string apiKey) :RestClient(new RestClientOptions("https:
         request.AddUrlSegment("key", key);
 
         // Execute the request
-        var response = await this.ExecuteAsync(request);
+        var response = await ExecuteAsync(request);
         response.ThrowIfError();
 
         // Return the file data

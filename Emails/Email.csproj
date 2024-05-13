@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
 
-    <AssemblyName>Doorfail Email</AssemblyName>
+    <AssemblyName>Doorfail.Email</AssemblyName>
     <RootNamespace>Doorfail.Email</RootNamespace>
     <Title>Doorfail Email</Title>
     <Description>Email individuals or bulk from an SMTP.</Description>

@@ -1,4 +1,4 @@
-﻿namespace Doorfail.Core.Util
+﻿namespace Doorfail.Utils
 {
     public static class Util
     {
@@ -26,7 +26,7 @@
         public static void CopyTo<T>(this object from, T to)
         {
             if(from is null || to is null)
-            { throw new ArgumentNullException(from is null ? nameof(from) : nameof(to)); }
+                throw new ArgumentNullException(from is null ? nameof(from) : nameof(to));
             var type = from.GetType();
             foreach(var prop in type.GetProperties())
             {

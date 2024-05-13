@@ -2,7 +2,7 @@
 using System.Resources;
 using Doorfail.Core.Models;
 
-namespace Doorfail.Core.Licensing;
+namespace Doorfail.Email.Licensing;
 public class LicenseException :Exception
 {
     private static readonly ResourceManager resourceManager = new($"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Licensing.Strings", Assembly.GetExecutingAssembly());

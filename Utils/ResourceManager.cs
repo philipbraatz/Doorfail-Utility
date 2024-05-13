@@ -1,10 +1,11 @@
 ﻿using System.Globalization;
 using System.Resources;
 using Doorfail.Core.Util.Extensions;
-using static Doorfail.Core.Util.ResourceManager;
+using Doorfail.Utils.Extensions;
+using static Doorfail.Utils.ResourceManager;
 using Resource = System.Resources.ResourceManager;
 
-namespace Doorfail.Core.Util;
+namespace Doorfail.Utils;
 
 public class ResourceManager(IEnumerable<Resource> managers, DefaultMissingValue defaultValue = DefaultMissingValue.MissingKey, FailureHandling onFailure = FailureHandling.ReturnNull)
 {
@@ -25,11 +26,9 @@ public class ResourceManager(IEnumerable<Resource> managers, DefaultMissingValue
     {
         foreach(var resourceManager in resourceManagers)
         {
-            string res = resourceManager.GetString(key);
+            var res = resourceManager.GetString(key);
             if(res != null)
-            {
                 return res;
-            }
         }
         return null;
     }
@@ -38,11 +37,9 @@ public class ResourceManager(IEnumerable<Resource> managers, DefaultMissingValue
     {
         foreach(var resourceManager in resourceManagers)
         {
-            string res = resourceManager.GetString(key, culture);
+            var res = resourceManager.GetString(key, culture);
             if(res != null)
-            {
                 return res;
-            }
         }
         return null;
     }

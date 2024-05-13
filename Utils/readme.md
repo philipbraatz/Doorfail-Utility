@@ -1,0 +1,1 @@
+Core utilities and extension methods I will use throughout all my projects.

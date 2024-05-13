@@ -5,23 +5,39 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
 
-    <AssemblyName>Doorfail Utils</AssemblyName>
+    <AssemblyName>Doorfail.Utils</AssemblyName>
     <RootNamespace>Doorfail.Utils</RootNamespace>
     <Title>Doorfail Core Utils</Title>
     <Description>Core utilities and extension methods I will use throughout all my projects.</Description>
-    <Copyright>2024</Copyright>
+    <Copyright>2024 Doorfail</Copyright>
     <Authors>Doorfail &lt;dev@doorfail.com&gt;</Authors>
     <Company>Docutie</Company>
     <Product>Doorfail.Core</Product>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/philipbraatz/Doorfail.Core</RepositoryUrl>
+    <PackageVersion>1.0.0-alpha</PackageVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
 
     <Configurations>Release</Configurations>
-    <PackageTags>Doorfail;Utility;Extensions</PackageTags>
+    <PackageTags>Doorfail Utility Extensions</PackageTags>
     <AssemblyVersion>1.0.2</AssemblyVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
     <FileVersion>1.0.2</FileVersion>
 
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
+
+  <Target Name="PostPackNugetDeploy" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="dotnet nuget push &quot;$(OutputPath)../$(AssemblyName).$(PackageVersion).nupkg&quot; --source &quot;https://www.nuget.org&quot;" />
+  </Target>
+  
+  <ItemGroup>
+    <None Update="readme.md" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.ico" Pack="true" PackagePath=""/>
+  </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Doorfail.Core.Util.Extensions;
+﻿namespace Doorfail.Utils.Extensions;
 
 public static class ListExtensions
 {

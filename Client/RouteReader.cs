@@ -1,7 +1,7 @@
 ﻿// Done without Mvc library due to incompatibility with Blazor WebAssembly
 using System.Reflection;
 
-namespace Doorfail.Core.Client;
+namespace Doorfail.Client;
 
 public class RouteInformation
 {
@@ -24,8 +24,7 @@ public static class RouteReader
         // Get HTTP methods and route template from action method attributes
         var actionMethod = controllerType.GetMethod(actionName);
         if(actionMethod == null)
-        { return routeInfo; }
-
+            return routeInfo;
         var httpMethods = actionMethod.GetCustomAttributes()
                 .Where(w => w.TypeId is not null)//HttpMethodAttribute
                 .Select(attr => attr.GetType().GetProperty("HttpMethods")?.GetValue(attr))

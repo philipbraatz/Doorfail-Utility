@@ -6,25 +6,43 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
 
-    <AssemblyName>Doorfail Core</AssemblyName>
+    <AssemblyName>Doorfail.Core</AssemblyName>
     <RootNamespace>Doorfail.Core</RootNamespace>
     <Title>Doorfail Core</Title>
-    <Description>Core models I will use throughout all my projects.</Description>
+    <Description>Core Models and methods I will use throughout all my projects.</Description>
     <Copyright>2024</Copyright>
     <Authors>Doorfail &lt;dev@doorfail.com&gt;</Authors>
     <Company>Docutie</Company>
     <Product>Doorfail.Core</Product>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/philipbraatz/Doorfail.Core</RepositoryUrl>
+    <PackageVersion>1.0.0-alpha</PackageVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
 
     <Configurations>Release</Configurations>
-    <PackageTags>Receipt;Email;Discord</PackageTags>
+    <PackageTags>entity;one to many;many to many</PackageTags>
     <AssemblyVersion>1.0.2</AssemblyVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
     <FileVersion>1.0.2</FileVersion>
   </PropertyGroup>
 
+  <Target Name="PostPackNugetDeploy" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="dotnet nuget push &quot;$(OutputPath)../$(AssemblyName).$(PackageVersion).nupkg&quot; --source &quot;https://www.nuget.org&quot;" />
+  </Target>
+
   <ItemGroup>
-    <ProjectReference Include="..\Utils\Utils.csproj" />
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="readme.md" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.ico" Pack="true" PackagePath=""/>
   </ItemGroup>
 </Project>

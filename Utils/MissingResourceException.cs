@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace Doorfail.Core.Util;
+namespace Doorfail.Utils;
 [Serializable]
 public class MissingResourceException :Exception
 {

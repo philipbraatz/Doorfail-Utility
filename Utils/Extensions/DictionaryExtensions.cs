@@ -1,6 +1,6 @@
-﻿using Doorfail.Core.Util.Extensions;
+﻿using Doorfail.Utils.Extensions;
 
-namespace Doorfail.Core.Util.Extensions
+namespace Doorfail.Utils.Extensions
 {
     public static class DictionaryExtensions
     {

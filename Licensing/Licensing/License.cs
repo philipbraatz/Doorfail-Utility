@@ -1,8 +1,8 @@
-﻿using Doorfail.Core.Util.Extensions;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using Doorfail.Core.Models;
+using Doorfail.Utils.Extensions;
 
-namespace Doorfail.Core.Licensing;
+namespace Doorfail.Email.Licensing;
 public class License :NamedEntityUpdatable<string>
 {
     public DateOnly ExpirationDate { get; set; }
@@ -23,7 +23,7 @@ public class License :NamedEntityUpdatable<string>
     {
         var i = 0;
         //Console.WriteLine("Length");
-        writer.Write((int)ExpirationDate.Year);
+        writer.Write(ExpirationDate.Year);
         //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
         writer.Write((short)ExpirationDate.Month);
         //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
@@ -31,20 +31,20 @@ public class License :NamedEntityUpdatable<string>
         //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
         writer.Write((short)FeatureAccess);
         //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
-        writer.Write((int)Version.Major);
+        writer.Write(Version.Major);
         //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
-        writer.Write((int)Version.Minor);
+        writer.Write(Version.Minor);
         //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
-        writer.Write((string)Program.ToString());
+        writer.Write(Program.ToString());
         //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
-        writer.Write((string)Name);
+        writer.Write(Name);
         //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
-        writer.Write((string)ContactInfo);
+        writer.Write(ContactInfo);
         //Console.WriteLine(i++.ToString()+" "+writer.BaseStream.Length);
 
         // Write an array of Keys
         writer.Write((short)Keys.Length);
-        foreach (var key in Keys)
+        foreach(var key in Keys)
         {
             writer.Write(key);
         }
@@ -61,7 +61,7 @@ public class License :NamedEntityUpdatable<string>
         //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
         var t3 = r.ReadInt16();
         //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
-        ExpirationDate = new DateOnly(t1,t2, t3);
+        ExpirationDate = new DateOnly(t1, t2, t3);
         FeatureAccess = r.ReadInt16();
         //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
         var major = r.ReadInt32();
@@ -75,7 +75,7 @@ public class License :NamedEntityUpdatable<string>
         //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
         ContactInfo = r.ReadString();
         //Console.WriteLine(i++.ToString()+" "+r.BaseStream.Position);
-        
+
         // Read an array of Keys
         var keyCount = r.ReadInt16();
         Keys = new string[keyCount];

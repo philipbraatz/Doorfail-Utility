@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using System.Text.Json;
-using Fileio;
+using Doorfail.Fileio;
 
-namespace Doorfail.Core.Logging;
+namespace Doorfail.Email.Logging;
 
 public class TempLogManager<T>
 {

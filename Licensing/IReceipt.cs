@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Doorfail.ReceiptMailer.Models;
+namespace Doorfail.Email;
 
 public interface IReceipt
 {

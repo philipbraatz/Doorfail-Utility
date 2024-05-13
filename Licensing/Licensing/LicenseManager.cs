@@ -1,12 +1,12 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using Doorfail.Core.Logging;
 using Doorfail.Core.Models;
-using Doorfail.Core.Util;
-using Fileio;
+using Doorfail.Email.Logging;
+using Doorfail.Fileio;
+using Doorfail.Utils;
 
-namespace Doorfail.Core.Licensing;
+namespace Doorfail.Email.Licensing;
 
 public class LicenseManager(string fileioKey, string programName)
 {
@@ -92,8 +92,8 @@ public class LicenseManager(string fileioKey, string programName)
             var uncompressed = Encryptor.Decrypt_AsByte(licenseKey, key, InitializationVector);
             //Console.WriteLine($"Raw data: {Convert.ToBase64String(uncompressed)}");
 
-            using(MemoryStream ms = new MemoryStream(uncompressed))
-            using(BinaryReader reader = new BinaryReader(ms))
+            using(var ms = new MemoryStream(uncompressed))
+            using(var reader = new BinaryReader(ms))
             {
                 license.ReadFromStream(reader);
             }
@@ -106,7 +106,7 @@ public class LicenseManager(string fileioKey, string programName)
 
         try
         {
-            TempLogManager<LicenseEvent> manager = TempLogManager<LicenseEvent>.Initialize(new FileClient(license.Keys[0])).Result;
+            var manager = TempLogManager<LicenseEvent>.Initialize(new FileClient(license.Keys[0])).Result;
             var lastLog = manager.ReadLastLog(license.ShortKey).Result;
             if(lastLog is not null)
             {
@@ -157,7 +157,7 @@ public class LicenseManager(string fileioKey, string programName)
 
             try
             {
-                TempLogManager<LicenseEvent> manager = TempLogManager<LicenseEvent>.Initialize(new FileClient(license.Keys[0])).Result;
+                var manager = TempLogManager<LicenseEvent>.Initialize(new FileClient(license.Keys[0])).Result;
                 var lastLog = manager.ReadLastLog(license.ShortKey).Result;
                 if(lastLog is not null)
                 {

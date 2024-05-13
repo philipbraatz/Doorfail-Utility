@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Net;
 using System.Text.Json;
+using Doorfail.Client;
 using NLog;
 using RestSharp;
 using JsonException = System.Text.Json.JsonException;

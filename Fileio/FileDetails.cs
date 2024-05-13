@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 
-namespace Fileio;
+namespace Doorfail.Fileio;
 public class FileDetails
 {
     public Guid Id { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace Client;
+﻿namespace Doorfail.Client;
 internal class DoorClient
 {
 }

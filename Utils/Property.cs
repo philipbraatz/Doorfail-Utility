@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Doorfail.Core.Util
+namespace Doorfail.Utils
 {
     //PropertyInfo with custom info
     //Max

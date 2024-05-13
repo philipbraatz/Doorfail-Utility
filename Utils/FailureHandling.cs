@@ -1,4 +1,4 @@
-﻿namespace Doorfail.Core.Util;
+﻿namespace Doorfail.Utils;
 
 public enum FailureHandling
 {

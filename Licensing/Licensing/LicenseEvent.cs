@@ -1,4 +1,4 @@
-﻿namespace Doorfail.Core.Licensing;
+﻿namespace Doorfail.Email.Licensing;
 public class LicenseEvent :License
 {
     public DateTimeOffset LogDate { get; set; }

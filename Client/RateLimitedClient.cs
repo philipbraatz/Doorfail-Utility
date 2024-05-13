@@ -5,7 +5,7 @@ using System.Text;
 using Polly;
 using RestSharp;
 
-namespace Door.Util.Client;
+namespace Doorfail.Client;
 
 public class RateLimitedClient :RestClient
 {

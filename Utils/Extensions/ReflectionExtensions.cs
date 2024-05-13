@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Doorfail.Utils;
 
-namespace Doorfail.Core.Util.Extensions
+namespace Doorfail.Utils.Extensions
 {
     public static class ReflectionExtensions
     {
@@ -28,7 +28,7 @@ namespace Doorfail.Core.Util.Extensions
             where TAttribute : class
         => property.GetCustomAttributes(inherit).FirstOrDefault(f => f is TAttribute) as TAttribute;
 
-        public static void Populate<T>(this T obj, IDictionary<string, string> values, Func<string, Type, object?>? convertStringToType = null)
+        public static void Populate<T>(this T obj, IDictionary<string, string> values, Func<string, Type, object> convertStringToType = null)
             where T : class
         {
             convertStringToType ??= Convert.ChangeType;

@@ -1,23 +1,23 @@
 ﻿using System.Diagnostics;
 using MimeKit;
 
-namespace Doorfail.Core.Email;
+namespace Doorfail.Email;
 
 public class EmailClient(EmailConfiguration config) :IEmailClient
 {
     private readonly MailKit.Net.Smtp.SmtpClient Client = new();
     private EmailConfiguration Configuration { get; set; } = config;
 
-    public async Task<(string, TimeSpan)> SendEmail(string fileName, string subject, MailboxAddress toAddress, IDictionary<string, string>? parameters = null)
+    public async Task<(string, TimeSpan)> SendEmail(string fileName, string subject, MailboxAddress toAddress, IDictionary<string, string> parameters = null)
     {
         Stopwatch timer = new();
         timer.Start();
-        string html = File.ReadAllText(fileName);
+        var html = File.ReadAllText(fileName);
 
         Client.Connect(Configuration.Host, Configuration.Port);
         Client.Authenticate(Configuration.Username, Configuration.Password);
 
-        MimeMessage email = CreateEmails(subject, html, toAddress, parameters);
+        var email = CreateEmails(subject, html, toAddress, parameters);
         var result = await Client.SendAsync(email);
         await Client.DisconnectAsync(true);
 
@@ -25,16 +25,16 @@ public class EmailClient(EmailConfiguration config) :IEmailClient
         return (result, timer.Elapsed);
     }
 
-    public async Task<(string, TimeSpan)> SendEmails(string fileName, string subject, IEnumerable<MailboxAddress> toAddresses, IDictionary<string, string>? parameters = null)
+    public async Task<(string, TimeSpan)> SendEmails(string fileName, string subject, IEnumerable<MailboxAddress> toAddresses, IDictionary<string, string> parameters = null)
     {
         Stopwatch timer = new();
         timer.Start();
-        string html = File.ReadAllText(fileName);
+        var html = File.ReadAllText(fileName);
 
         Client.Connect(Configuration.Host, Configuration.Port);
         Client.Authenticate(Configuration.Username, Configuration.Password);
 
-        MimeMessage email = CreateEmails(subject, html, toAddresses.First(), parameters);
+        var email = CreateEmails(subject, html, toAddresses.First(), parameters);
         var result = await Client.SendAsync(email, Configuration.FromAddress, toAddresses);
         await Client.DisconnectAsync(true);
         timer.Stop();

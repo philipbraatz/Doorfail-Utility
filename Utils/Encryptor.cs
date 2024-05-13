@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace Doorfail.Core.Util;
+namespace Doorfail.Utils;
 
 public static class Encryptor
 {
@@ -20,7 +20,7 @@ public static class Encryptor
         aesAlg.Key = Key;
         aesAlg.IV = IV;
 
-        ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+        var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
         using MemoryStream msEncrypt = new();
         using CryptoStream csEncrypt = new(msEncrypt, encryptor, CryptoStreamMode.Write);
@@ -28,7 +28,7 @@ public static class Encryptor
         switch(plainText)
         {
             case string s:
-                byte[] stringBytes = Encoding.UTF8.GetBytes(s);
+                var stringBytes = Encoding.UTF8.GetBytes(s);
                 csEncrypt.Write(stringBytes, 0, stringBytes.Length);
                 break;
 
@@ -37,8 +37,8 @@ public static class Encryptor
                 break;
 
             default:
-                string jsonString = JsonSerializer.Serialize(plainText);
-                byte[] jsonBytes = Encoding.UTF8.GetBytes(jsonString);
+                var jsonString = JsonSerializer.Serialize(plainText);
+                var jsonBytes = Encoding.UTF8.GetBytes(jsonString);
                 csEncrypt.Write(jsonBytes, 0, jsonBytes.Length);
                 break;
         }
@@ -62,7 +62,7 @@ public static class Encryptor
         aesAlg.Key = Key;
         aesAlg.IV = IV;
 
-        ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+        var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
         using var msDecrypt = new MemoryStream(cipherText);
         using var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
