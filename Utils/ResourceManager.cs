@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.Resources;
-using Doorfail.Core.Util.Extensions;
 using Doorfail.Utils.Extensions;
 using static Doorfail.Utils.ResourceManager;
 using Resource = System.Resources.ResourceManager;

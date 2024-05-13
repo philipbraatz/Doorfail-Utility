@@ -1,0 +1,1 @@
+Send emails given to users. Supports template variables.
