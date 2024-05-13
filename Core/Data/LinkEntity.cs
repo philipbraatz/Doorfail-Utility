@@ -1,17 +1,14 @@
-﻿namespace Doorfail.Core.Data
+﻿namespace Doorfail.Core.Data;
+
+public abstract class Link<TId, TEntity1, TEntity2, TId1, TId2>
+    where TEntity1 : Entity<TId1>
+    where TEntity2 : Entity<TId2>
 {
-    public abstract class Link<TId, FId, F2Id>
-    {
-        public TId ID { get; set; }
-        public FId Id1 { get; set; }
-        public F2Id Id2 { get; set; }
+    public TId ID { get; set; }
+    public TEntity1 Entity1 { get; set; }
+    public TEntity2 Entity2 { get; set; }
 
-    }
+    public TId1 Id1 { get => Entity1.ID; set => Entity1.ID = value; }
+    public TId2 Id2 { get => Entity2.ID; set => Entity2.ID = value; }
 
-    public abstract class LinkEntity<TId, F1, F2, F1id, F2id> : Link<TId, F1, F2>
-        where F1 : Entity<F1id>
-        where F2 : Entity<F2id>
-    {
-
-    }
 }

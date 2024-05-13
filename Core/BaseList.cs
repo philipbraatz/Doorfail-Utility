@@ -9,7 +9,13 @@ namespace Doorfail.Core
            where TEntity : Entity<Tid>//database table
            where Tcrud : DataModel<TEntity, Tid>//BL version
     {
-        protected PropertyInfo[] properties { get; set; }
+        #region Option
+        protected static bool ActivelyUpdate { set; private get; } = true;
+        protected static bool ThrowErrors { set; private get; } = false;
+
+        #endregion Options
+
+        protected TContext Context { get; set; }
 
         public BaseList()
         {
@@ -65,7 +71,8 @@ namespace Doorfail.Core
     public class AbsListJoin<Tcrud, TEntity, TForignEntity, Tid, Fid> : BaseList<Tcrud, TEntity, Tid>
         where Tcrud : DataModel<TEntity, Tid>
         where TEntity : Entity<Tid>
-        where TForignEntity : ForignEntity<Fid, Tid>
+        where TForignEntity : ForeignEntity<Fid, Tid>
+        where TContext : DbContext
     {
         protected object joinGroupingID;
         private string joinForeignIDname;

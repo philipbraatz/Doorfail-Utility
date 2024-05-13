@@ -5,7 +5,6 @@ namespace Doorfail.Core.Data
 {
     public abstract class Entity<TId>
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public TId ID { get; set; }
