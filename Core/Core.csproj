@@ -17,7 +17,7 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/philipbraatz/Doorfail.Core</RepositoryUrl>
-    <PackageVersion>1.0.0-alpha</PackageVersion>
+    <PackageVersion>1.0.1-alpha</PackageVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
 
