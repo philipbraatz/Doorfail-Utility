@@ -14,18 +14,22 @@
     <Authors>Doorfail &lt;dev@doorfail.com&gt;</Authors>
     <Company>Docutie</Company>
     <Product>Doorfail.Email</Product>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    
     <RepositoryUrl>https://github.com/philipbraatz/Doorfail.Core</RepositoryUrl>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <PackageIcon>icon.png</PackageIcon>
+    
     <PackageVersion>1.0.0-alpha</PackageVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
 
     <Configurations>Release</Configurations>
     <PackageTags>SMTP;email</PackageTags>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <FileVersion>1.0.2</FileVersion>
   </PropertyGroup>
 
   <Target Name="PostPackNugetDeploy" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
@@ -46,11 +50,9 @@
 
 
   <ItemGroup>
-    <None Update="readme.md" Pack="true" PackagePath=""/>
+    <None Update="readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Include="icon.ico" Pack="true" PackagePath=""/>
+    <None Update="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
-  
 </Project>

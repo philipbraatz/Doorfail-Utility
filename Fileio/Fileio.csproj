@@ -14,14 +14,17 @@
     <Company>Docutie</Company>
     <Product>Doorfail.Core</Product>
     <ApplicationIcon>icon.ico</ApplicationIcon>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
 
-    <PackageLicenseExpression>Apache License 2.0</PackageLicenseExpression>
+    <PackageVersion>1.0.1-alpha</PackageVersion>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
+
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Configurations>Release</Configurations>
     <PackageTags>file;storage;api;temporary</PackageTags>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <FileVersion>1.0.2</FileVersion>
   </PropertyGroup>
 
   <Target Name="PostPackNugetDeploy" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
@@ -38,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="icon.ico" />
+    <None Update="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
-  
+
 </Project>

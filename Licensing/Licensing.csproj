@@ -14,13 +14,16 @@
     <Company>Docutie</Company>
     <Product>Doorfail.Core</Product>
     <ApplicationIcon>icon.ico</ApplicationIcon>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+
+    <PackageVersion>1.0.1-alpha</PackageVersion>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
 
     <Configurations>Release</Configurations>
     <PackageTags>Doorfail;Email</PackageTags>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <FileVersion>1.0.2</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +34,11 @@
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\Fileio\Fileio.csproj" />
     <ProjectReference Include="..\Utils\Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icon.png" Pack="true" PackagePath="">
+    </None>
   </ItemGroup>
 
 </Project>

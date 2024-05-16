@@ -69,6 +69,7 @@ public class ResourceManager(IEnumerable<Resource> managers, DefaultMissingValue
             DefaultMissingValue.Key => key,
             DefaultMissingValue.WrappedKey => $"[{key}]",
             DefaultMissingValue.MissingKey => $"[MISSING '{key}']",
+            _ => throw new NotImplementedException(),
         };
     }
 }

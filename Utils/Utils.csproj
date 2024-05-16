@@ -14,17 +14,20 @@
     <Company>Docutie</Company>
     <Product>Doorfail.Core</Product>
     <ApplicationIcon>icon.ico</ApplicationIcon>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/philipbraatz/Doorfail.Core</RepositoryUrl>
+
     <PackageVersion>1.0.2-alpha</PackageVersion>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <FileVersion>1.0.2</FileVersion>
+    
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
 
     <Configurations>Release</Configurations>
     <PackageTags>Doorfail Utility Extensions</PackageTags>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <FileVersion>1.0.2</FileVersion>
 
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
@@ -34,10 +37,9 @@
   </Target>
   
   <ItemGroup>
-    <None Update="readme.md" Pack="true" PackagePath=""/>
+    <None Update="readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Include="icon.ico" Pack="true" PackagePath=""/>
+    <None Update="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>
